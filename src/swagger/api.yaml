@@ -6,7 +6,7 @@ info:
 servers:
   - url: http://localhost:3000
     description: This is my local server
-
+    
 paths:
   /livecheck:
     get:
@@ -19,3 +19,73 @@ paths:
               schema:
                 type: string
 
+  /create-group:
+    post:
+      summary: Creating a group
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: 
+                id: 
+                  type: integer
+                name: 
+                  type: string
+      responses:
+        200:
+          description: Success
+          content: 
+            application/json:
+              schema:
+                $ref: "#/definitions/ResponseSchema"
+        400:
+          description: Bad request.
+          content: 
+            application/json:
+              schema:
+                $ref: "#/definitions/ResponseSchema"
+        401:
+          description: Authorization information is missing or invalid.
+          content: 
+            application/json:
+              schema:
+                $ref: "#/definitions/ResponseSchema"
+        403:
+          description: Authorization information is missing or invalid.
+          content: 
+            application/json:
+              schema:
+                $ref: "#/definitions/ResponseSchema"
+        404:
+          description: A user with the specified ID was not found.
+          content: 
+            application/json:
+              schema:
+                $ref: "#/definitions/ResponseSchema"
+
+  /get-group/name: 
+    get:
+      summary: Fetching group 
+      responses:
+        200:
+          description: Successful response
+          content: 
+            application/json:
+              schema:
+                $ref: "#/definitions/ResponseSchema"
+        400:
+          description: Bad request.
+          content: 
+            application/json:
+              schema:
+                $ref: "#/definitions/ResponseSchema" 
+definitions: 
+      ResponseSchema:
+        type: object
+        properties:
+          error:
+            type: boolean
+          message: 
+              type: string
