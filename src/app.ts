@@ -5,6 +5,7 @@ const app = express();
 import yaml from 'js-yaml';
 import fs from 'fs';
 import createGroup from './routes/createGroup';
+import getGroup from './routes/getGroup';
 
 const doc = yaml.load(fs.readFileSync('./src/swagger/api.yaml', 'utf8'));
 
@@ -21,10 +22,8 @@ app.post('/create-group', (req,res) => {
 });
 
 app.get('/get-group/:name', (req,res) => {
-  res.send({
-    error: false,
-    message: `Group fetched ${req.params.name}`
-  });
+  const group = getGroup(req.params.name)
+  res.send(group);
 });
 
 app.listen(port, () => {
