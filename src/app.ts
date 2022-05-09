@@ -4,6 +4,7 @@ import swaggerUi from 'swagger-ui-express';
 const app = express();
 import yaml from 'js-yaml';
 import fs from 'fs';
+import createGroup from './routes/createGroup';
 
 const doc = yaml.load(fs.readFileSync('./src/swagger/api.yaml', 'utf8'));
 
@@ -15,10 +16,8 @@ app.get('/livecheck', (req, res) => {
 });
 
 app.post('/create-group', (req,res) => {
-  res.send({
-    error: false,
-    message: `${req.body.name} group created successfully`
-  });
+  const group = createGroup(req.body.name);
+  res.send(group);
 });
 
 app.get('/get-group/:name', (req,res) => {
